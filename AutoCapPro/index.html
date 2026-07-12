@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoCap Pro - AI Powered Captions</title>
+    
+    <!-- CSInterface for CEP communication -->
+    <script src="js/CSInterface.js"></script>
+    <script src="js/main.js" defer></script>
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header class="header">
+        <div class="logo">
+            <i class="fas fa-closed-captioning"></i>
+            <h1>AutoCap Pro</h1>
+        </div>
+        <button id="settingsBtn" class="icon-btn" title="Settings">
+            <i class="fas fa-cog"></i>
+        </button>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <!-- API Key Section -->
+        <section class="section api-section">
+            <label for="apiKey">OpenAI API Key</label>
+            <div class="input-group">
+                <input type="password" id="apiKey" placeholder="sk-..." autocomplete="off">
+                <button id="toggleApiKey" class="toggle-btn" title="Show/Hide">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+            <p class="hint">Your key is stored locally and never sent to our servers.</p>
+        </section>
+
+        <!-- Language Selection -->
+        <section class="section">
+            <label for="language">Language</label>
+            <select id="language">
+                <option value="auto">Auto-Detect (Recommended)</option>
+                <option value="en">English</option>
+                <option value="hi">Hindi</option>
+                <option value="hinglish">Hinglish (Mixed)</option>
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+                <option value="pt">Portuguese</option>
+                <option value="it">Italian</option>
+                <option value="ja">Japanese</option>
+                <option value="ko">Korean</option>
+                <option value="zh">Chinese</option>
+                <option value="ar">Arabic</option>
+                <option value="ru">Russian</option>
+            </select>
+        </section>
+
+        <!-- Caption Style Selection -->
+        <section class="section">
+            <label for="captionStyle">Caption Style</label>
+            <select id="captionStyle">
+                <option value="trending-popup">Trending Pop-up</option>
+                <option value="karaoke">Karaoke Word-Highlight</option>
+                <option value="dynamic-box">Dynamic Box Background</option>
+                <option value="mrbeast">MrBeast Style</option>
+                <option value="minimal">Minimal Clean</option>
+                <option value="bold">Bold Impact</option>
+            </select>
+            <div id="stylePreview" class="style-preview">
+                <span class="preview-text">Preview</span>
+            </div>
+        </section>
+
+        <!-- Advanced Options -->
+        <section class="section advanced-options">
+            <details>
+                <summary><i class="fas fa-sliders-h"></i> Advanced Options</summary>
+                
+                <div class="option-row">
+                    <label for="fontSize">Font Size</label>
+                    <input type="range" id="fontSize" min="20" max="150" value="60">
+                    <span id="fontSizeValue">60px</span>
+                </div>
+
+                <div class="option-row">
+                    <label for="maxWordsPerLine">Max Words Per Line</label>
+                    <input type="number" id="maxWordsPerLine" min="3" max="15" value="8">
+                </div>
+
+                <div class="option-row">
+                    <label for="captionPosition">Position</label>
+                    <select id="captionPosition">
+                        <option value="bottom">Bottom Third</option>
+                        <option value="center">Center</option>
+                        <option value="top">Top Third</option>
+                    </select>
+                </div>
+
+                <div class="option-row checkbox-row">
+                    <input type="checkbox" id="addBackground" checked>
+                    <label for="addBackground">Add Background Box</label>
+                </div>
+
+                <div class="option-row checkbox-row">
+                    <input type="checkbox" id="addShadow" checked>
+                    <label for="addShadow">Add Drop Shadow</label>
+                </div>
+            </details>
+        </section>
+
+        <!-- Status Messages -->
+        <div id="statusMessage" class="status-message hidden">
+            <i class="fas fa-info-circle"></i>
+            <span id="statusText">Ready</span>
+        </div>
+
+        <!-- Progress Bar -->
+        <div id="progressContainer" class="progress-container hidden">
+            <div class="progress-bar">
+                <div id="progressFill" class="progress-fill"></div>
+            </div>
+            <span id="progressText">Processing...</span>
+        </div>
+
+    </main>
+
+    <!-- Footer with Generate Button -->
+    <footer class="footer">
+        <button id="generateBtn" class="generate-btn">
+            <i class="fas fa-magic"></i>
+            Generate Auto-Captions
+        </button>
+    </footer>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button id="closeSettings" class="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <div class="modal-body">
+                <div class="setting-item">
+                    <label>Default Font Family</label>
+                    <select id="defaultFont">
+                        <option value="Arial">Arial</option>
+                        <option value="Helvetica">Helvetica</option>
+                        <option value="Impact">Impact</option>
+                        <option value="Bebas Neue">Bebas Neue</option>
+                        <option value="Montserrat">Montserrat</option>
+                        <option value="Roboto">Roboto</option>
+                        <option value="Open Sans">Open Sans</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <label>Primary Color</label>
+                    <input type="color" id="primaryColor" value="#FFFF00">
+                </div>
+
+                <div class="setting-item">
+                    <label>Secondary Color</label>
+                    <input type="color" id="secondaryColor" value="#FFFFFF">
+                </div>
+
+                <div class="setting-item">
+                    <label>Background Color</label>
+                    <input type="color" id="backgroundColor" value="#000000">
+                </div>
+
+                <div class="setting-item">
+                    <label>Animation Speed</label>
+                    <select id="animationSpeed">
+                        <option value="fast">Fast</option>
+                        <option value="normal" selected>Normal</option>
+                        <option value="slow">Slow</option>
+                    </select>
+                </div>
+
+                <div class="setting-item">
+                    <button id="clearCache" class="secondary-btn">
+                        <i class="fas fa-trash"></i> Clear Saved API Key
+                    </button>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="saveSettings" class="save-btn">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

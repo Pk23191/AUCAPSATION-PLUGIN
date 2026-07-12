@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  AutoCap Pro - Debug Configuration File
+  Enable debugging by placing this file in the CEP debug folder
+-->
+<ExtensionList>
+    <Extension Id="com.autocapro.panel">
+        <HostList>
+            <Host Name="AEFT" Port="8088"/>
+        </HostList>
+    </Extension>
+</ExtensionList>

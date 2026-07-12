@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  AutoCap Pro - CEP Manifest File
+  Premium After Effects Extension for AI-Powered Auto Captions
+-->
+<ExtensionManifest Version="7.0" ExtensionBundleId="com.autocappro.ae" ExtensionBundleVersion="1.0.0" ExtensionBundleName="AutoCap Pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  
+  <!-- Extension List -->
+  <ExtensionList>
+    <Extension Id="com.autocapro.panel" Version="1.0.0" />
+  </ExtensionList>
+
+  <!-- Execution Environment -->
+  <ExecutionEnvironment>
+    <HostList>
+      <!-- After Effects CC 2015 and later -->
+      <Host Name="AEFT" Version="[13.0,99.9]" />
+      <!-- Premiere Pro (optional future support) -->
+      <Host Name="PPRO" Version="[9.0,99.9]" />
+    </HostList>
+    
+    <LocaleList>
+      <Locale Code="All" />
+    </LocaleList>
+    
+    <RequiredRuntimeList>
+      <RequiredRuntime Name="CSXS" Version="9.0" />
+    </RequiredRuntimeList>
+  </ExecutionEnvironment>
+
+  <!-- Dispatch Info -->
+  <DispatchInfoList>
+    <Extension Id="com.autocapro.panel">
+      <DispatchInfo>
+        <Resources>
+          <MainPath>./index.html</MainPath>
+          <ScriptPath>./host/host.jsx</ScriptPath>
+          <CEFCommandLine>
+            <Parameter>--enable-nodejs</Parameter>
+            <Parameter>--mixed-context</Parameter>
+          </CEFCommandLine>
+          <StartOn>
+            <Event>ApplicationStartup</Event>
+          </StartOn>
+          <Menu>
+            <MenuEntry Id="com.autocapro.menu" Label="AutoCap Pro" Enabled="true" />
+          </Menu>
+          <Icons>
+            <Icon Type="Normal">./icons/icon.png</Icon>
+            <Icon Type="RollOver">./icons/icon_hover.png</Icon>
+            <Icon Type="DarkNormal">./icons/icon_dark.png</Icon>
+            <Icon Type="DarkRollOver">./icons/icon_dark_hover.png</Icon>
+          </Icons>
+        </Resources>
+        
+        <Lifecycle>
+          <AutoVisible>true</AutoVisible>
+        </Lifecycle>
+        
+        <UI>
+          <Type>Panel</Type>
+          <Menu>AutoCap Pro</Menu>
+          <Geometry>
+            <Size>
+              <Height>600</Height>
+              <Width>350</Width>
+            </Size>
+            <MinSize>
+              <Height>400</Height>
+              <Width>300</Width>
+            </MinSize>
+            <MaxSize>
+              <Height>800</Height>
+              <Width>500</Width>
+            </MaxSize>
+          </Geometry>
+          <Icons />
+        </UI>
+      </DispatchInfo>
+    </Extension>
+  </DispatchInfoList>
+</ExtensionManifest>
